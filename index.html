@@ -128,8 +128,6 @@
                 jumpCount++;
             } 
                 }
-        }
-
         runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 10) { e.preventDefault(); moveBtn(); } });
         runBtn.addEventListener('mouseover', () => { if(jumpCount < 10) moveBtn(); });
         
