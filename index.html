@@ -127,24 +127,11 @@
                 runBtn.style.transform = 'none';
                 jumpCount++;
             } 
-            function moveBtn() {
-            if (jumpCount < 10) {
-                const x = Math.random() * (window.innerWidth - runBtn.clientWidth);
-                const y = Math.random() * (window.innerHeight - runBtn.clientHeight);
-                runBtn.style.left = x + 'px';
-                runBtn.style.top = y + 'px';
-                runBtn.style.transform = 'none';
-                jumpCount++;
-            }
+                }
         }
 
-        runBtn.addEventListener('touchstart', (e) => { 
-            if(jumpCount < 10) { e.preventDefault(); moveBtn(); } 
-        });
-
-        runBtn.addEventListener('mouseover', () => { 
-            if(jumpCount < 10) moveBtn(); 
-        });
+        runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 10) { e.preventDefault(); moveBtn(); } });
+        runBtn.addEventListener('mouseover', () => { if(jumpCount < 10) moveBtn(); });
         
         runBtn.addEventListener('click', () => {
             if (jumpCount >= 10) {
@@ -154,21 +141,13 @@
         });
 
         noBtn.addEventListener('mouseover', () => {
-            noBtn.innerText = 'не работаю';
-            setTimeout(() => { 
-                noBtn.innerText = '⬆️⬆️⬆️'; 
-                noBtn.style.background = '#ff0055'; 
-                noBtn.style.color = 'white'; 
-            }, 1000);
+            noBtn.innerText = 'Я ДУРАК';
+            setTimeout(() => { noBtn.innerText = 'ОЙ, ХОРОШО!'; noBtn.style.background = '#ff0055'; noBtn.style.color = 'white'; }, 1000);
         });
-
         noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
-            noBtn.innerText = 'нельзя';
-            setTimeout(() => { 
-                noBtn.style.background = '#ff0055'; 
-                noBtn.innerText = 'тех перерыв'; 
-            }, 1000);
+            noBtn.innerText = 'НЕЛЬЗЯ!';
+            setTimeout(() => { noBtn.style.background = '#ff0055'; noBtn.innerText = 'ЖМИ ЛЕВУЮ!'; }, 500);
         });
     </script>
 </body>
