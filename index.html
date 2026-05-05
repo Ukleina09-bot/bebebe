@@ -224,28 +224,42 @@
                 jumpCount++;
             }
         }
-        runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 10) { e.preventDefault(); moveBtn(); } });
-        runBtn.addEventListener('mouseover', () => { if(jumpCount < 10) moveBtn(); });
-        // Находим новые элементы
-const modal = document.getElementById('finalModal');
-const noBtn = document.getElementById('noButton');
 
-// Когда поймал кнопку
-runBtn.addEventListener('click', () => {
-    runBtn.style.display = 'none'; // Убираем убегающую кнопку
-    modal.style.display = 'block'; // Показываем окно с выбором
-});
+        runBtn.addEventListener('touchstart', (e) => { 
+            if(jumpCount < 10) { 
+                e.preventDefault(); 
+                moveBtn(); 
+            } 
+        });
 
-// Пранк над кнопкой "Отказаться"
-noBtn.addEventListener('mouseover', () => {
-    noBtn.innerText = 'Я ДУРАК'; 
-    setTimeout(() => { noBtn.innerText = 'ОЙ, ХОРОШО!'; noBtn.style.background = '#ff0055'; noBtn.style.color = 'white'; }, 1000);
-});
+        runBtn.addEventListener('mouseover', () => { 
+            if(jumpCount < 10) moveBtn(); 
+        });
+        
+        runBtn.addEventListener('click', () => {
+            // Окно откроется только если кнопка прыгнула 10 раз
+            if (jumpCount >= 10) {
+                runBtn.style.display = 'none';
+                modal.style.display = 'block';
+            }
+        });
 
-noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    noBtn.innerText = 'НЕЛЬЗЯ!';
-    setTimeout(() => { noBtn.style.background = '#ff0055'; noBtn.innerText = 'ЖМИ ЛЕВУЮ!'; }, 500);
-});
+        noBtn.addEventListener('mouseover', () => {
+            noBtn.innerText = 'Я ДУРАК'; 
+            setTimeout(() => { 
+                noBtn.innerText = 'ОЙ, ХОРОШО!'; 
+                noBtn.style.background = '#ff0055'; 
+                noBtn.style.color = 'white'; 
+            }, 1000);
+        });
+
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            noBtn.innerText = 'НЕЛЬЗЯ!';
+            setTimeout(() => { 
+                noBtn.style.background = '#ff0055'; 
+                noBtn.innerText = 'ЖМИ ЛЕВУЮ!'; 
+            }, 500);
+        });
     </script>
 </body>
