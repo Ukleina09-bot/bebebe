@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>От: Tochnonecawa</title>
+    <title>Tochnonecawa</title>
     <style>
-body {
+        body {
             margin: 0; padding: 0;
             background: #1a0101;
             color: #ffb7c5;
@@ -88,9 +88,9 @@ body {
     <div class="vignette" id="vignette"></div>
 
     <div class="content" id="mainBox">
-        <h1 id="headline">От: Tochnonecawa</h1>
-        <p id="subline">Для: любимость</p>
-        <button class="btn" onclick="activateScreamer()">Нажми сюда, бусинка</button>
+        <h1 id="headline">Tochnonecawa</h1>
+        <p id="subline">сайт для бусинки</p>
+        <button class="btn" onclick="activateScreamer()">Нажми сюда, булочка</button>
         <p style="font-size: 0.7rem; margin-top: 30px; opacity: 0.3;">est. 67</p>
     </div>
 
@@ -102,11 +102,11 @@ body {
             
             const head = document.getElementById('headline');
             head.className = 'text-scream';
-            head.innerText = "ТЫ МОЙ МИР ♥️";
+            head.innerText = "Я ТЕБЯ ЛЮБЛЮ!!!";
 
             // Запускаем взрывы из центра
             setInterval(() => {
-                const parts = ['❤️', '💋', '🔥', '🌸', '♥️'];
+                const parts = ['❤️', '💋', '🔥', '💖', '💘'];
                 for(let i=0; i<5; i++) {
                     createExplosionEmoji(parts[Math.floor(Math.random()*parts.length)]);
                 }
