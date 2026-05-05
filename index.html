@@ -4,20 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моей Илюшности</title>
-    <style>.background-petal {
-    position: absolute;
-    top: -50px;
-    pointer-events: none;
-    z-index: 1;
-    /* Вместо смайлика делаем розовый нежный овал */
-    background: #ffb7c5; 
-    border-radius: 150% 0 150% 0; /* Форма лепестка */
-    opacity: 0.7;
-    animation: fall linear forwards;
-}
-@keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
-}
+    <style>
         body {
             background-color: #1a0505;
             display: flex;
@@ -30,7 +17,6 @@
             color: white;
         }
 
-        /* Тряска фона */
         .shake-active { animation: shake 0.1s infinite; }
         @keyframes shake {
             0% { transform: translate(3px, 3px); }
@@ -38,7 +24,21 @@
             100% { transform: translate(3px, -2px); }
         }
 
-        /* КАРТОЧКА №1 */
+        /* ТЕ САМЫЕ ЛЕПЕСТКИ */
+        .background-petal {
+            position: absolute;
+            top: -50px;
+            pointer-events: none;
+            z-index: 1;
+            background: #ffb7c5; 
+            border-radius: 154% 0 154% 0;
+            opacity: 0.7;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
         #main-card {
             border: 2px solid #ff0055;
             border-radius: 40px;
@@ -46,7 +46,7 @@
             text-align: center;
             width: 85%;
             max-width: 350px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
             z-index: 10;
         }
@@ -62,39 +62,35 @@
             padding: 15px 30px;
             font-size: 16px;
             cursor: pointer;
+            z-index: 20;
         }
 
-        /* ХАОС (Надпись) */
         #chaos-container {
             display: none;
             position: absolute;
             width: 100%; height: 100%;
             justify-content: center; align-items: center;
-            transition: opacity 1.5s ease;
-            pointer-events: none;
+            z-index: 50;
         }
 
         .text {
             font-size: 45px; color: #ff2d55; font-weight: bold; text-align: center;
             animation: attack 1.5s infinite ease-in-out;
-            z-index: 50;
         }
 
         @keyframes attack {
             0% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(3) rotate(-60deg); }
+            25% { transform: scale(3.5) rotate(-60deg); }
             50% { transform: scale(1) rotate(0deg); }
-            75% { transform: scale(3) rotate(60deg); }
+            75% { transform: scale(3.5) rotate(60deg); }
             100% { transform: scale(1) rotate(0deg); }
         }
 
-        /* СТИКЕРЫ ИЗ ЦЕНТРА */
         .explosion-sticker {
             position: absolute;
             top: 50%; left: 50%;
-            font-size: 30px;
             pointer-events: none;
-            z-index: 5;
+            z-index: 60;
             animation: explode 1.5s forwards ease-out;
         }
 
@@ -103,7 +99,6 @@
             100% { transform: translate(var(--tx), var(--ty)) scale(2.5) rotate(var(--tr)); opacity: 0; }
         }
 
-        /* УБЕГАЮЩАЯ КНОПКА */
         #runBtn {
             display: none; opacity: 0;
             position: absolute; padding: 15px 30px;
@@ -115,89 +110,78 @@
         }
     </style>
 </head>
-<body id="mainBody">
+<body>
 
-    <!-- ПЕРВЫЙ ЭКРАН -->
     <div id="main-card">
         <div class="from-to">От: Tochnonecawa</div>
         <div class="for-whom">Для: любимости</div>
         <button class="start-btn" id="goBtn">Нажми сюда, бусинка</button>
     </div>
 
-    <!-- ТРЭШ ЭКРАН -->
     <div id="chaos-container">
-        <div class="text">Ты мой мир ♥️</div>
+        <div class="text">ты мой мир ♥️</div>
     </div>
 
-    <!-- ФИНАЛ -->
     <button id="runBtn">хочу поцелуев</button>
 
     <script>
-       function createPetal() {
-    const p = document.createElement('div');
-    p.className = 'background-petal';
-    // Смайлик УДАЛЯЕМ, оставляем пустой блок, форма будет из CSS
-    p.style.width = (Math.random() * 10 + 5) + 'px'; // Размер лепестка
-    p.style.height = (Math.random() * 10 + 15) + 'px';
-    p.style.left = Math.random() * 100 + 'vw';
-    p.style.opacity = Math.random() * 0.6 + 0.2;
-    p.style.animationDuration = (Math.random() * 3 + 5) + 's';
-    document.body.appendChild(p);
-    setTimeout(() => p.remove(), 8000);
+        // 1. Лепестки на фоне (сразу)
+        function createPetal() {
+            const p = document.createElement('div');
+            p.className = 'background-petal';
+            p.style.width = (Math.random() * 10 + 5) + 'px';
+            p.style.height = (Math.random() * 10 + 15) + 'px';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.opacity = Math.random() * 0.6 + 0.2;
+            p.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 8000);
+        }
+        setInterval(createPetal, 400);
 
-// Запускаем создание лепестков каждые 400 миллисекунд
-setInterval(createPetal, 400);
-        const body = document.getElementById('mainBody');
+        const body = document.body;
         const card = document.getElementById('main-card');
         const chaos = document.getElementById('chaos-container');
         const runBtn = document.getElementById('runBtn');
+        const goBtn = document.getElementById('goBtn');
         let jumpCount = 0;
 
-        document.getElementById('goBtn').addEventListener('click', () => {
+        // 2. Логика по клику на "бусинку"
+        goBtn.addEventListener('click', () => {
             card.style.display = 'none';
             body.classList.add('shake-active');
             chaos.style.display = 'flex';
 
-            // Функция взрыва стикеров
+            // МЯСО ИЗ СТИКЕРОВ (увеличил в 10 раз по просьбе)
             const stickerInterval = setInterval(() => {
-                const s = document.createElement('div');
-                s.className = 'explosion-sticker';
-                s.innerHTML = ['🌸','❤️','❤️','♥️','💋','❤️','❤️','♥️','💋','❤️','♥️','♥️','❤️','♥️','💋','❤️','♥️'][Math.floor(Math.random()*5)];
-                
-                // Случайное направление полёта
-                const angle = Math.random() * Math.PI * 2;
-                const dist = 300 + Math.random() * 500;
-                const tx = Math.cos(angle) * dist + 'px';
-                const ty = Math.sin(angle) * dist + 'px';
-                const tr = (Math.random() * 360) + 'deg';
-                
-                s.style.setProperty('--tx', tx);
-                s.style.setProperty('--ty', ty);
-                s.style.setProperty('--tr', tr);
-                
-                document.body.appendChild(s);
-                setTimeout(() => s.remove(), 1500);
-            }, 100);
+                for (let i = 0; i < 6; i++) { // Сразу пачкой по 6 штук
+                    const s = document.createElement('div');
+                    s.className = 'explosion-sticker';
+                    s.innerHTML = ['❤️','♥️','💋','❤️','🌸'][Math.floor(Math.random()*5)];
+                    const angle = Math.random() * Math.PI * 2;
+                    const dist = 300 + Math.random() * 600;
+                    s.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+                    s.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+                    s.style.setProperty('--tr', Math.random() * 360 + 'deg');
+                    document.body.appendChild(s);
+                    setTimeout(() => s.remove(), 1500);
+                }
+            }, 60);
 
-            // Финал через 5 сек
             setTimeout(() => {
                 clearInterval(stickerInterval);
                 chaos.style.opacity = '0';
                 body.classList.remove('shake-active');
-                
                 setTimeout(() => {
                     chaos.style.display = 'none';
                     runBtn.style.display = 'block';
-                    setTimeout(() => {
-                        runBtn.style.opacity = '1';
-                        moveBtn();
-                    }, 100);
+                    setTimeout(() => { runBtn.style.opacity = '1'; moveBtn(); }, 100);
                 }, 1500);
             }, 5000);
         });
 
         function moveBtn() {
-            if (jumpCount < 14) {
+            if (jumpCount < 10) {
                 const x = Math.random() * (window.innerWidth - runBtn.clientWidth);
                 const y = Math.random() * (window.innerHeight - runBtn.clientHeight);
                 runBtn.style.left = x + 'px';
@@ -205,9 +189,8 @@ setInterval(createPetal, 400);
                 jumpCount++;
             }
         }
-
-        runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 14) { e.preventDefault(); moveBtn(); } });
-        runBtn.addEventListener('mouseover', () => { if(jumpCount < 14) moveBtn(); });
-        runBtn.addEventListener('click', () => alert('Ну наконец-то поймал! С тебя миллион поцелуев минимум 💋'));
+        runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 10) { e.preventDefault(); moveBtn(); } });
+        runBtn.addEventListener('mouseover', () => { if(jumpCount < 10) moveBtn(); });
+        runBtn.addEventListener('click', () => alert('ну наконец-то поймал! С тебя миллион поцелуев минимум 💋'));
     </script>
 </body>
