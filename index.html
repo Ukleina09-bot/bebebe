@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tochnonecawa</title>
+    <title>От: Tochnonecawa</title>
     <style>
         body {
             margin: 0; padding: 0;
@@ -12,88 +12,141 @@
             font-family: 'Segoe UI', sans-serif;
             display: flex; justify-content: center; align-items: center;
             height: 100vh; width: 100vw; overflow: hidden; text-align: center;
-            transition: background 1s;
         }
+        
+        .vignette {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            box-shadow: inset 0 0 150px rgba(0,0,0,0);
+            pointer-events: none; z-index: 100; transition: all 0.5s;
+        }
+
         .content {
             z-index: 10;
             background: rgba(0, 0, 0, 0.7);
             padding: 40px 25px;
             border-radius: 25px;
             border: 1px solid #e30b5c;
-            backdrop-filter: blur(10px);
             width: 85%;
-            transition: all 0.5s;
+            transition: opacity 0.5s;
         }
-        h1 { font-size: 2rem; color: #ff2d55; text-transform: uppercase; margin: 0; }
+
+        /* Тряска экрана */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px); }
+            20% { transform: translate(-3px, -2px); }
+            40% { transform: translate(3px, 2px); }
+            60% { transform: translate(-1px, 1px); }
+            80% { transform: translate(-3px, -1px); }
+            100% { transform: translate(1px, -2px); }
+        }
+
+        /* Пульсация текста на зрителя */
+        @keyframes zoomPulse {
+            0% { transform: translate(-50%, -50%) scale(0.8); text-shadow: 0 0 20px #ff2d55; }
+            50% { transform: translate(-50%, -50%) scale(1.4); text-shadow: 0 0 70px #ff2d55, 0 0 120px #ff2d55; }
+            100% { transform: translate(-50%, -50%) scale(0.8); text-shadow: 0 0 20px #ff2d55; }
+        }
+
+        /* Полет эмодзи из центра */
+        @keyframes explode {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) rotate(var(--tr)) scale(1.5); opacity: 0; }
+        }
+
+        .scream-active { animation: shake 0.1s infinite !important; }
+        .vignette-active { box-shadow: inset 0 0 200px 120px rgba(0,0,0,0.95) !important; }
+        
+        .text-scream { 
+            animation: zoomPulse 0.3s infinite ease-in-out !important; 
+            position: fixed !important; top: 50% !important; left: 50% !important;
+            width: 100% !important; z-index: 1000 !important; 
+            font-size: 3.5rem !important; color: white !important; margin: 0;
+            display: block !important;
+        }
+
         .btn {
             background: #e30b5c; color: white; border: none;
             padding: 15px 30px; border-radius: 50px;
-            margin-top: 25px; font-weight: bold; font-size: 1rem;
-            box-shadow: 0 0 20px rgba(227, 11, 92, 0.6);
-            cursor: pointer;
+            margin-top: 25px; font-weight: bold; cursor: pointer;
         }
-        .petal {
-            position: absolute; top: -10%; pointer-events: none;
-            animation: fall linear infinite; z-index: 1;
+
+        .emoji {
+            position: fixed; top: 50%; left: 50%;
+            pointer-events: none; z-index: 500;
+            user-select: none;
         }
+
+        /* Обычные лепестки (фон) */
+        .petal { position: absolute; top: -10%; pointer-events: none; animation: fall linear infinite; }
         @keyframes fall {
             0% { transform: translateY(0vh) rotate(0deg); }
             100% { transform: translateY(110vh) rotate(360deg); }
         }
-        /* Стиль для активного режима «Любовь» */
-        .love-mode { background: radial-gradient(circle, #800020 0%, #1a0101 100%) !important; }
     </style>
 </head>
-<body id="top">
+<body id="body">
+    <div class="vignette" id="vignette"></div>
+
     <div class="content" id="mainBox">
-        <h1 id="headline">Tochnonecawa</h1>
-        <p id="subline">сайт для бусинки</p>
-        <button class="btn" id="mainBtn" onclick="activateLove()">Нажми сюда, булочка</button>
+        <h1 id="headline">От: Tochnonecawa</h1>
+        <p id="subline">Для: любимость</p>
+        <button class="btn" onclick="activateScreamer()">Нажми сюда, бусинка</button>
+        <p style="font-size: 0.7rem; margin-top: 30px; opacity: 0.3;">est. 67</p>
     </div>
 
     <script>
-        function activateLove() {
-            // Меняем фон и коробку
-            document.getElementById('top').classList.add('love-mode');
-            const box = document.getElementById('mainBox');
-            box.style.boxShadow = "0 0 100px #ff2d55";
+        function activateScreamer() {
+            document.getElementById('body').classList.add('scream-active');
+            document.getElementById('vignette').classList.add('vignette-active');
+            document.getElementById('mainBox').style.opacity = "0";
             
-            // Меняем текст
-            document.getElementById('headline').innerText = "ТЫ МОЙ МИР ♥";
-            document.getElementById('subline').innerText = "Теперь ты официально в моей власти!";
-            document.getElementById('mainBtn').style.display = 'none';
+            const head = document.getElementById('headline');
+            head.className = 'text-scream';
+            head.innerText = "ТЫ МОЙ МИР ♥️";
 
-            // Создаем взрыв сердец
-            for(let i=0; i<50; i++) {
-                setTimeout(() => createEmoji('❤️'), i * 50);
-                setTimeout(() => createEmoji('💋'), i * 70);
-            }
-            
-            // Запускаем постоянный дождь из поцелуев
-            setInterval(() => createEmoji('🔥'), 200);
+            // Запускаем взрывы из центра
+            setInterval(() => {
+                const parts = ['❤️', '💋', '🔥', '🌸', '♥️'];
+                for(let i=0; i<5; i++) {
+                    createExplosionEmoji(parts[Math.floor(Math.random()*parts.length)]);
+                }
+            }, 150);
         }
 
-        function createEmoji(sym) {
+        function createExplosionEmoji(sym) {
             const e = document.createElement('div');
-            e.className = 'petal';
-            e.innerText = sym || '🌸';
-            e.style.fontSize = Math.random() * 20 + 20 + 'px';
-            e.style.left = Math.random() * 100 + 'vw';
-            e.style.animationDuration = Math.random() * 2 + 2 + 's';
+            e.className = 'emoji';
+            e.innerText = sym;
+            
+            // Генерируем случайное направление полета (в радиусе 500px от центра)
+            const angle = Math.random() * Math.PI * 2;
+            const dist = Math.random() * 500 + 200;
+            const tx = Math.cos(angle) * dist + 'px';
+            const ty = Math.sin(angle) * dist + 'px';
+            const tr = Math.random() * 360 + 'deg';
+
+            e.style.setProperty('--tx', tx);
+            e.style.setProperty('--ty', ty);
+            e.style.setProperty('--tr', tr);
+            
+            e.style.fontSize = Math.random() * 30 + 20 + 'px';
+            e.style.animation = 'explode 1s forwards ease-out';
+            
             document.body.appendChild(e);
-            setTimeout(() => e.remove(), 4000);
+            setTimeout(() => e.remove(), 1000);
         }
 
-        // Обычные лепестки для начала
+        // Фон: падающие лепестки в начале
         setInterval(() => {
             const p = document.createElement('div');
             p.className = 'petal';
-            p.style.width = '12px'; p.style.height = '18px';
-            p.style.background = '#ffb7c5'; p.style.borderRadius = '100% 0';
+            p.style.width = '15px'; p.style.height = '20px';
+            p.style.background = '#ffb7c5';
+            p.style.borderRadius = '100% 0';
             p.style.left = Math.random() * 100 + 'vw';
-            p.style.animationDuration = Math.random() * 3 + 4 + 's';
+            p.style.animationDuration = '5s';
             document.body.appendChild(p);
-            setTimeout(() => p.remove(), 7000);
-        }, 400);
+            setTimeout(() => p.remove(), 6000);
+        }, 500);
     </script>
 </body>
