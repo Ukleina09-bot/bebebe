@@ -5,7 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моей Илюшности</title>
     <style>
-        body {
+        /* Финальное окно */
+#finalModal {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: #2a0a0a;
+    border: 2px solid #ff0055;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 0 30px rgba(255, 0, 85, 0.5);
+    width: 280px;
+}
+#finalModal h2 { font-size: 20px; margin-bottom: 20px; color: white; }
+.modal-btns { display: flex; flex-direction: column; gap: 10px; }
+.m-btn {
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.yes-btn { background: #ff0055; color: white; }
+.no-btn { background: #444; color: #999; position: relative; }
+
+ body {
             background-color: #1a0505;
             display: flex;
             justify-content: center;
@@ -16,6 +44,13 @@
             font-family: 'Arial', sans-serif;
             color: white;
         }
+        <div id="finalModal">
+    <h2>ну наконец-то поймал! С тебя миллион поцелуев минимум 💋</h2>
+    <div class="modal-btns">
+        <button class="m-btn yes-btn" onclick="alert('буду ждать, люблю тебя мой котёночек ♥️')">Хорошо, моя любимая</button>
+        <button class="m-btn no-btn" id="noButton">Отказаться</button>
+    </div>
+
 
         .shake-active { animation: shake 0.1s infinite; }
         @keyframes shake {
@@ -191,6 +226,26 @@
         }
         runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 10) { e.preventDefault(); moveBtn(); } });
         runBtn.addEventListener('mouseover', () => { if(jumpCount < 10) moveBtn(); });
-        runBtn.addEventListener('click', () => alert('ну наконец-то поймал! С тебя миллион поцелуев минимум 💋'));
+        // Находим новые элементы
+const modal = document.getElementById('finalModal');
+const noBtn = document.getElementById('noButton');
+
+// Когда поймал кнопку
+runBtn.addEventListener('click', () => {
+    runBtn.style.display = 'none'; // Убираем убегающую кнопку
+    modal.style.display = 'block'; // Показываем окно с выбором
+});
+
+// Пранк над кнопкой "Отказаться"
+noBtn.addEventListener('mouseover', () => {
+    noBtn.innerText = 'Я ДУРАК'; 
+    setTimeout(() => { noBtn.innerText = 'ОЙ, ХОРОШО!'; noBtn.style.background = '#ff0055'; noBtn.style.color = 'white'; }, 1000);
+});
+
+noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    noBtn.innerText = 'НЕЛЬЗЯ!';
+    setTimeout(() => { noBtn.style.background = '#ff0055'; noBtn.innerText = 'ЖМИ ЛЕВУЮ!'; }, 500);
+});
     </script>
 </body>
