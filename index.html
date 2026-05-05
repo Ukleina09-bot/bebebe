@@ -44,20 +44,21 @@
             margin: 5px 0;
             opacity: 0.9;
         }
+        /* Стиль лепестка через маску цвета */
         .petal {
             position: absolute;
             top: -10%;
+            background-color: #ffb7c5; /* Цвет лепестка как на фото */
+            border-radius: 100% 0 100% 0; /* Форма лепестка */
             pointer-events: none;
             animation: fall linear infinite;
             z-index: 1;
-            /* Сами лепестки */
-            background-image: url('https://www.transparentpng.com/download/sakura-base/flower-petals-falling-cherry-blossoms-png-4.png');
-            background-size: contain;
-            background-repeat: no-repeat;
+            opacity: 0.6;
         }
         @keyframes fall {
-            0% { transform: translateY(0vh) rotate(0deg); }
-            100% { transform: translateY(110vh) rotate(360deg); }
+            0% { transform: translateY(0vh) rotate(0deg) translateX(0); }
+            50% { transform: translateX(30px) rotate(180deg); }
+            100% { transform: translateY(110vh) rotate(360deg) translateX(-30px); }
         }
     </style>
 </head>
@@ -71,17 +72,24 @@
         function createPetal() {
             const petal = document.createElement('div');
             petal.classList.add('petal');
-            // Делаем разные размеры лепестков
-            const size = Math.random() * 15 + 10 + 'px';
-            petal.style.width = size;
-            petal.style.height = size;
+            
+            // Рандомный размер лепестка
+            const sizeWidth = Math.random() * 10 + 10 + 'px';
+            const sizeHeight = Math.random() * 5 + 15 + 'px';
+            petal.style.width = sizeWidth;
+            petal.style.height = sizeHeight;
+            
             petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = Math.random() * 4 + 5 + 's';
-            petal.style.opacity = Math.random() * 0.6 + 0.4;
+            petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+            
+            // Немного разный цвет для естественности
+            const colors = ['#ffb7c5', '#ffc0cb', '#faafbe'];
+            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
             document.body.appendChild(petal);
-            setTimeout(() => { petal.remove(); }, 9000);
+            setTimeout(() => { petal.remove(); }, 8000);
         }
-        setInterval(createPetal, 200); // Чтобы летели почаще и красиво
+        setInterval(createPetal, 250);
     </script>
 </body>
 </html>
