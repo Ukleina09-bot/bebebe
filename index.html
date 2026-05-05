@@ -134,7 +134,7 @@
 function createPetal() {
     const p = document.createElement('div');
     p.className = 'background-petal';
-    p.innerHTML = '❤️'; // Можно заменить на ❤️, если хочешь лепестки-сердечки
+    p.innerHTML = '🌸'; // Можно заменить на ❤️, если хочешь лепестки-сердечки
     p.style.left = Math.random() * 100 + 'vw';
     p.style.fontSize = (Math.random() * 15 + 10) + 'px';
     p.style.opacity = Math.random() * 0.5 + 0.3;
@@ -162,7 +162,7 @@ setInterval(createPetal, 400);
             const stickerInterval = setInterval(() => {
                 const s = document.createElement('div');
                 s.className = 'explosion-sticker';
-                s.innerHTML = ['🌸','люблю','❤️','люблю','💋','люблю','♥️'][Math.floor(Math.random()*5)];
+                s.innerHTML = ['🌸','❤️','❤️','♥️','💋','❤️','❤️','♥️','💋','❤️','♥️','♥️','❤️','♥️','💋','❤️','♥️'][Math.floor(Math.random()*5)];
                 
                 // Случайное направление полёта
                 const angle = Math.random() * Math.PI * 2;
@@ -197,7 +197,7 @@ setInterval(createPetal, 400);
         });
 
         function moveBtn() {
-            if (jumpCount < 10) {
+            if (jumpCount < 14) {
                 const x = Math.random() * (window.innerWidth - runBtn.clientWidth);
                 const y = Math.random() * (window.innerHeight - runBtn.clientHeight);
                 runBtn.style.left = x + 'px';
@@ -206,8 +206,8 @@ setInterval(createPetal, 400);
             }
         }
 
-        runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 10) { e.preventDefault(); moveBtn(); } });
-        runBtn.addEventListener('mouseover', () => { if(jumpCount < 10) moveBtn(); });
+        runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 14) { e.preventDefault(); moveBtn(); } });
+        runBtn.addEventListener('mouseover', () => { if(jumpCount < 14) moveBtn(); });
         runBtn.addEventListener('click', () => alert('Ну наконец-то поймал! С тебя миллион поцелуев минимум 💋'));
     </script>
 </body>
