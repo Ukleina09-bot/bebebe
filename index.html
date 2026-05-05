@@ -4,7 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Для моей Илюшности</title>
-    <style>
+    <style>.background-petal {
+    position: absolute;
+    top: -50px;
+    pointer-events: none;
+    z-index: 1;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+}
         body {
             background-color: #1a0505;
             display: flex;
@@ -120,6 +130,23 @@
     <button id="runBtn">хочу поцелуев</button>
 
     <script>
+        // Функция создания одного лепестка
+function createPetal() {
+    const p = document.createElement('div');
+    p.className = 'background-petal';
+    p.innerHTML = '❤️'; // Можно заменить на ❤️, если хочешь лепестки-сердечки
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.fontSize = (Math.random() * 15 + 10) + 'px';
+    p.style.opacity = Math.random() * 0.5 + 0.3;
+    p.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    document.body.appendChild(p);
+    
+    // Удаляем лепесток, когда он улетел за экран
+    setTimeout(() => p.remove(), 7000);
+}
+
+// Запускаем создание лепестков каждые 400 миллисекунд
+setInterval(createPetal, 400);
         const body = document.getElementById('mainBody');
         const card = document.getElementById('main-card');
         const chaos = document.getElementById('chaos-container');
