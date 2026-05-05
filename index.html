@@ -6,92 +6,94 @@
     <title>Tochnonecawa</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background: radial-gradient(circle, #4a0404 0%, #1a0101 100%);
+            margin: 0; padding: 0;
+            background: #1a0101;
             color: #ffb7c5;
             font-family: 'Segoe UI', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            text-align: center;
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh; width: 100vw; overflow: hidden; text-align: center;
+            transition: background 1s;
         }
         .content {
             z-index: 10;
-            background: rgba(0, 0, 0, 0.65);
-            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px 25px;
             border-radius: 25px;
             border: 1px solid #e30b5c;
-            box-shadow: 0 0 40px rgba(227, 11, 92, 0.4);
-            backdrop-filter: blur(12px);
-            width: 80%;
+            backdrop-filter: blur(10px);
+            width: 85%;
+            transition: all 0.5s;
         }
-        h1 {
-            font-size: 1.8rem;
-            margin: 0 0 10px 0;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #ff2d55;
-            text-shadow: 0 0 15px rgba(255, 45, 85, 0.6);
+        h1 { font-size: 2rem; color: #ff2d55; text-transform: uppercase; margin: 0; }
+        .btn {
+            background: #e30b5c; color: white; border: none;
+            padding: 15px 30px; border-radius: 50px;
+            margin-top: 25px; font-weight: bold; font-size: 1rem;
+            box-shadow: 0 0 20px rgba(227, 11, 92, 0.6);
+            cursor: pointer;
         }
-        p {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: #ffb7c5;
-            margin: 5px 0;
-            opacity: 0.9;
-        }
-        /* Стиль лепестка через маску цвета */
         .petal {
-            position: absolute;
-            top: -10%;
-            background-color: #ffb7c5; /* Цвет лепестка как на фото */
-            border-radius: 100% 0 100% 0; /* Форма лепестка */
-            pointer-events: none;
-            animation: fall linear infinite;
-            z-index: 1;
-            opacity: 0.6;
+            position: absolute; top: -10%; pointer-events: none;
+            animation: fall linear infinite; z-index: 1;
         }
         @keyframes fall {
-            0% { transform: translateY(0vh) rotate(0deg) translateX(0); }
-            50% { transform: translateX(30px) rotate(180deg); }
-            100% { transform: translateY(110vh) rotate(360deg) translateX(-30px); }
+            0% { transform: translateY(0vh) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(360deg); }
         }
+        /* Стиль для активного режима «Любовь» */
+        .love-mode { background: radial-gradient(circle, #800020 0%, #1a0101 100%) !important; }
     </style>
 </head>
-<body>
-    <div class="content">
-        <h1>Tochnonecawa</h1>
-        <p>сайт для бусинки</p>
-        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.5;">est. 67</p>
+<body id="top">
+    <div class="content" id="mainBox">
+        <h1 id="headline">Tochnonecawa</h1>
+        <p id="subline">сайт для бусинки</p>
+        <button class="btn" id="mainBtn" onclick="activateLove()">Нажми сюда, булочка</button>
     </div>
+
     <script>
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.classList.add('petal');
+        function activateLove() {
+            // Меняем фон и коробку
+            document.getElementById('top').classList.add('love-mode');
+            const box = document.getElementById('mainBox');
+            box.style.boxShadow = "0 0 100px #ff2d55";
             
-            // Рандомный размер лепестка
-            const sizeWidth = Math.random() * 10 + 10 + 'px';
-            const sizeHeight = Math.random() * 5 + 15 + 'px';
-            petal.style.width = sizeWidth;
-            petal.style.height = sizeHeight;
+            // Меняем текст
+            document.getElementById('headline').innerText = "ТЫ МОЙ МИР ♥";
+            document.getElementById('subline').innerText = "Теперь ты официально в моей власти!";
+            document.getElementById('mainBtn').style.display = 'none';
+
+            // Создаем взрыв сердец
+            for(let i=0; i<50; i++) {
+                setTimeout(() => createEmoji('❤️'), i * 50);
+                setTimeout(() => createEmoji('💋'), i * 70);
+            }
             
-            petal.style.left = Math.random() * 100 + 'vw';
-            petal.style.animationDuration = Math.random() * 3 + 5 + 's';
-            
-            // Немного разный цвет для естественности
-            const colors = ['#ffb7c5', '#ffc0cb', '#faafbe'];
-            petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            
-            document.body.appendChild(petal);
-            setTimeout(() => { petal.remove(); }, 8000);
+            // Запускаем постоянный дождь из поцелуев
+            setInterval(() => createEmoji('🔥'), 200);
         }
-        setInterval(createPetal, 250);
+
+        function createEmoji(sym) {
+            const e = document.createElement('div');
+            e.className = 'petal';
+            e.innerText = sym || '🌸';
+            e.style.fontSize = Math.random() * 20 + 20 + 'px';
+            e.style.left = Math.random() * 100 + 'vw';
+            e.style.animationDuration = Math.random() * 2 + 2 + 's';
+            document.body.appendChild(e);
+            setTimeout(() => e.remove(), 4000);
+        }
+
+        // Обычные лепестки для начала
+        setInterval(() => {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.style.width = '12px'; p.style.height = '18px';
+            p.style.background = '#ffb7c5'; p.style.borderRadius = '100% 0';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = Math.random() * 3 + 4 + 's';
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 7000);
+        }, 400);
     </script>
 </body>
-</html>
-
-
