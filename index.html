@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для моей булочки</title>
+    <title>Для моей Илюшности</title>
     <style>
         body {
             background-color: #1a0505;
@@ -113,7 +113,7 @@
 
     <!-- ТРЭШ ЭКРАН -->
     <div id="chaos-container">
-        <div class="text">ты мой мир ♥️</div>
+        <div class="text">Ты мой мир ♥️</div>
     </div>
 
     <!-- ФИНАЛ -->
@@ -135,7 +135,7 @@
             const stickerInterval = setInterval(() => {
                 const s = document.createElement('div');
                 s.className = 'explosion-sticker';
-                s.innerHTML = ['🌸','❤️','💖','💋','✨'][Math.floor(Math.random()*5)];
+                s.innerHTML = ['🌸','люблю','❤️','люблю','💋','люблю','♥️'][Math.floor(Math.random()*5)];
                 
                 // Случайное направление полёта
                 const angle = Math.random() * Math.PI * 2;
@@ -181,6 +181,6 @@
 
         runBtn.addEventListener('touchstart', (e) => { if(jumpCount < 10) { e.preventDefault(); moveBtn(); } });
         runBtn.addEventListener('mouseover', () => { if(jumpCount < 10) moveBtn(); });
-        runBtn.addEventListener('click', () => alert('Ну наконец-то! С тебя миллион поцелуев! 💋'));
+        runBtn.addEventListener('click', () => alert('Ну наконец-то поймал! С тебя миллион поцелуев минимум 💋'));
     </script>
 </body>
